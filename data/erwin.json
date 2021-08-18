@@ -1,0 +1,52 @@
+{
+  "names": [
+    "Erwin meme",
+    "Sorry, that was a strange thing to ask."
+  ],
+  "post": "p0pey1",
+  "_rimg": "4tyz5wtqk7g71",
+  "width": 1920,
+  "height": 3240,
+  "style": {
+    "font": "Verdana",
+    "size": 95,
+    "fill": "#FFF",
+    "halign": "center",
+    "valign": "bottom",
+    "outline": "#000",
+    "stroke": 6
+  },
+  "text" : [
+    {
+      "text": [
+        {
+          "content": "[QUESTION]",
+          "pos": [
+            {
+              "x": 960,
+              "y": 1000
+            }
+          ]
+        },
+        {
+          "content": "Huh?",
+          "pos": [
+            {
+              "x": 960,
+              "y": 2080
+            }
+          ]
+        },
+        {
+          "content": "Sorry, that was a strange thing to ask.",
+          "pos": [
+            {
+              "x": 960,
+              "y": 3160
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

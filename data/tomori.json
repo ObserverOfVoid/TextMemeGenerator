@@ -1,0 +1,97 @@
+{
+  "names": [
+    "Annoyed Tomori"
+  ],
+  "post": "p1u0ii",
+  "_rimg": "3e1h4jq4fkg71",
+  "width": 1920,
+  "height": 2160,
+  "style": {
+    "font": "Verdana",
+    "size": 95,
+    "fill": "#FFF",
+    "halign": "center",
+    "valign": "centre",
+    "outline": "#000",
+    "stroke": 6
+  },
+  "text" : [
+    {
+      "text": [
+        {
+          "style": {
+            "fill": "#CFF"
+          },
+          "content": "Person 1",
+          "pos": [
+            {
+              "t": false,
+              "x": 500,
+              "y": 800
+            },
+            {
+              "x": 500,
+              "y": 1880
+            }
+          ]
+        },
+        {
+          "style": {
+            "fill": "#FCC"
+          },
+          "content": "Person 2",
+          "pos": [
+            {
+              "x": 1300,
+              "y": 460
+            },
+            {
+              "t": false,
+              "x": 1450,
+              "y": 1540
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "style": {
+        "size": 75,
+        "fill": "#CFC"
+      },
+      "text": [
+        {
+          "content": "Thing 1",
+          "pos": [
+            {
+              "x": 980,
+              "y": 700
+            }
+          ]
+        },
+        {
+          "content": "Thing 2",
+          "pos": [
+            {
+              "x": 1300,
+              "y": 820
+            }
+          ]
+        },
+        {
+          "content": "Annoying\nthing",
+          "style": {
+            "fill": "#FFF",
+            "outline": "#A22"
+          },
+          "pos": [
+            {
+              "x": 1065,
+              "y": 1840
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

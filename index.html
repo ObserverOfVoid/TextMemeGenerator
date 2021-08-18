@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+  <head>
+    <title>OoV Text Meme Generator</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <script src="lo.js"></script>
+  </head>
+  <body class="full">
+    <div class="cent cem">
+      <div id="lst" class="bane eli"></div>
+    </div>
+    <script>
+      LO.get("data/!list.txt", lsr => {
+        var lst = document.getElementById("lst");
+        var list = lsr.split("\n");
+        list.forEach(ite => {
+          var el = document.createElement("a");
+          el.href = "gen/?temp=" + ite;
+          lst.append(el);
+          LO.getJSON("data/" + ite + ".json", data => el.innerText = data.names.join("\n"));
+        });
+      });
+    </script>
+  </body>
+</html>

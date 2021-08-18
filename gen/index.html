@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+  <head>
+    <title>OoV Text Meme Generator</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" href="../favicon.ico" type="image/x-icon">
+    <script src="../lo.js"></script>
+    <style id="stl">
+      body > div {
+        width: 50vw;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+      }
+      
+      #lp {
+        left: 0;
+        min-width: 40vw;
+      }
+      
+      #rp {
+        right: 0;
+        max-width: 60vw;
+        background-color: #555;
+        box-shadow: 0 0 20px 5px #000 inset;
+      }
+      
+      #tes {
+        overflow-y: auto;
+      }
+      
+      #hig, #hig * {
+        display: none;
+      }
+      
+      #img:not(.hf) {
+        height: 100%;
+      }
+      
+      #img.hf {
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body class="full">
+    <div id="lp" class="dynv">
+      <div class="dynh">
+        <a id="names" class="dynf trax">names</a>
+        <div class="eli stork dynv">
+          <div class="dynh">
+            <input id="is" class="dynf" type="number" value="100" min="1">
+            %
+          </div>
+          <div class="dynh">
+            <input id="iw" class="dynf" type="number" min="1">
+            &nbsp;×&nbsp;
+            <input id="ih" class="dynf" type="number" min="1">
+          </div>
+          <button id="dl">Download</button>
+          <button id="tf">Toggle&nbsp;fit</button>
+        </div>
+      </div>
+      <div id="tes" class="dynf bane eli"></div>
+    </div>
+    <div id="rp" class="cent">
+      <canvas id="img"></canvas>
+    </div>
+    <div id="hig">
+      <a id="dla"></a>
+    </div>
+    <script>
+      const
+        EL = (() => {
+          var E = {};
+          Array.prototype.forEach.call(document.querySelectorAll("[id]"), e => E[e.id] = e);
+          return E;
+        })(),
+        ELF = {
+          div(el, cls) {
+            var div = document.createElement("div");
+            if (cls) div.setAttribute("class", cls);
+            el.append(div);
+            return div;
+          },
+          sin(st, el, prop, req = false) {
+            var ss = document.createElement("input");
+            ss.type = "number";
+            ss.required = req;
+            ss.min = 0;
+            el.append(ss);
+            if (st.hasOwnProperty(prop)) ss.value = st[prop];
+            ss.oninput = function() {
+              if (!this.checkValidity()) return;
+              if (this.value.length === 0) {
+                delete st[prop];
+              } else {
+                st[prop] = this.value;
+              }
+              Editor.redraw();
+            };
+            return ss;
+          },
+          cval(v) {
+            return v.length === 4 ? v.replace(/[^#]/g, "$&$&") : v;
+          },
+          cin(st, el, prop, req = false) {
+            var val = st.hasOwnProperty(prop) ? st[prop] : "";
+            var cc = this.div(el, "dynh");
+            var ccx = this.div(cc, "cin");
+            ccx.style.backgroundColor = val;
+            var ccc = document.createElement("input");
+            ccc.type = "color";
+            ccx.append(ccc);
+            ccc.value = ELF.cval(st[prop]);
+            ccc.oninput = function() {
+              ccx.style.backgroundColor = st[prop] = cct.value = this.value;
+              Editor.redraw();
+            };
+            var cct = document.createElement("input");
+            cct.type = "text";
+            cct.pattern = "#[0-9a-fA-F]{3}([0-9a-fA-F]{3})?";
+            cct.required = req;
+            cc.append(cct);
+            cct.value = val;
+            cct.oninput = function() {
+              if (!this.checkValidity()) return;
+              if (this.value) {
+                st[prop] = this.value;
+              } else {
+                delete st[prop];
+              }
+              ccc.value = ELF.cval(st[prop]);
+              ccx.style.backgroundColor = this.value;
+              Editor.redraw();
+            };
+            return cc;
+          },
+          chin(ob, el, prop) {
+            var chin = document.createElement("input");
+            chin.type = "checkbox";
+            el.append(chin);
+            chin.checked = ob[prop];
+            chin.oninput = function() {
+              ob[prop] = this.checked;
+              Editor.redraw();
+            };
+          },
+          stel(ob, el, req = false) {
+            var stel = this.div(el, "dynh dynr skit");
+            this.sin(ob.style, stel, "size", req);
+            this.cin(ob.style, stel, "fill", req);
+            this.sin(ob.style, stel, "stroke", req);
+            this.cin(ob.style, stel, "outline", req);
+          },
+          tero(ob, el, val) {
+            ob.lines = val.split("\n");
+            el.rows = Math.max(3, ob.lines.length);
+          },
+          tel(ob, el) {
+            var tel = document.createElement("textarea");
+            this.tero(ob, tel, tel.value = ob.content);
+            el.append(tel);
+            tel.oninput = function() {
+              ELF.tero(ob, tel, ob.content = this.value);
+              Editor.redraw();
+            };
+          },
+          pel(pos, el) {
+            var pel = this.div(el, "dynh dynr skit");
+            pos.forEach(po => {
+              if (!("t" in po)) po.t = true;
+              this.chin(po, pel, "t");
+            });
+          }
+        },
+        Editor = (() => {
+          var Ed = {
+            valis: {
+              centre: 0.5,
+              center: 0.5,
+              top: 0,
+              bottom: 1,
+              down: 0,
+              up: 1
+            },
+            style: {
+              def(ob) {
+                (ob.style = ob.style || {}).__proto__ = this;
+              },
+              font: "Verdana",
+              size: 95,
+              fill: "#000",
+              halign: "center",
+              valign: "center",
+              line: 1.1,
+              outline: "#FFF",
+              stroke: 0
+            }, 
+            dimg: new Image(),
+            g2d: EL.img.getContext("2d"),
+            redraw() {
+              EL.img.width = EL.iw.value;
+              EL.img.height = EL.ih.value;
+              
+              var g2d = this.g2d, scale = EL.is.value / 100;
+              g2d.setTransform(scale, 0, 0, scale, 0, 0);
+              
+              g2d.drawImage(this.dimg, 0, 0, this.data.width, this.data.height);
+              
+              this.text.forEach(tg => tg.text.forEach(tx => {
+                if (tx.content.length === 0 || tx.style.size === 0) return;
+                var
+                  st = tx.style,
+                  lines = tx.lines,
+                  lh = st.size * st.line,
+                  y = (this.valis[st.valign] || st.valign) * (lines.length - 1) * lh;
+                g2d.fillStyle = st.fill;
+                g2d.strokeStyle = st.outline;
+                g2d.lineWidth = 2 * st.stroke;
+                g2d.font = st.size + "px " + st.font;
+                g2d.textAlign = st.halign;
+                lines.forEach(line => {
+                  tx.pos.forEach(po => {
+                    if (!po.t) return;
+                    if (st.stroke > 0) g2d.strokeText(line, po.x, po.y - y);
+                    g2d.fillText(line, po.x, po.y - y);
+                  });
+                  y -= lh;
+                });
+              }));
+            }
+          };
+          var pars = new URLSearchParams(location.search);
+          Ed.temp = pars.get("temp");
+          
+          var load = data => {
+            Ed.data = data;
+            document.title = data.names[0] + " | " + document.title;
+            EL.names.innerText = data.names.join("\n");
+            EL.names.href = "https://old.reddit.com/" + data.post;
+            
+            EL.stl.sheet.insertRule("#rp, #imgb:not(.hf) {width: " + (100 * data.width / data.height) + "vh;}");
+            EL.lp.style.width = "calc(100vw - " + (100 * data.width / data.height) + "vh)";
+            EL.iw.value = data.width;
+            EL.ih.value = data.height;
+            
+            Ed.style.def(data);
+            ELF.stel(data, EL.tes, true);
+            
+            Ed.text = data.text;
+            Ed.text.forEach(tg => {
+              data.style.def(tg);
+              
+              var el = ELF.div(EL.tes, "eli stork");
+              ELF.stel(tg, el);
+              
+              tg.text.forEach(tx => {
+                tg.style.def(tx);
+                
+                var eel = ELF.div(el, "dynv skat");
+                ELF.stel(tx, eel);
+                ELF.tel(tx, eel);
+                ELF.pel(tx.pos, eel);
+              });
+            });
+            
+            
+            Ed.dimg.crossOrigin = "*";
+            Ed.dimg.onload = () => Ed.redraw();
+            Ed.dimg.src = data.rimg ? "https://i.redd.it/" + data.rimg + ".png" : data.ximg || ("../data/" + (data.img || Ed.temp) + ".png");
+          };
+          
+          if (pars.has("data")) {
+            load(JSON.parse(pars.get("data")));
+          } else {
+            LO.getJSON("../data/" + Ed.temp + ".json", load);
+          }
+          
+          EL.is.oninput = function() {
+            EL.iw.value = Math.round(this.value * Ed.data.width / 100);
+            EL.ih.value = Math.round(this.value * Ed.data.height / 100);
+            Ed.redraw();
+          };
+          EL.iw.oninput = function() {
+            EL.is.value = this.value * 100 / Ed.data.width;
+            EL.ih.value = Math.round(this.value * Ed.data.height / Ed.data.width);
+            Ed.redraw();
+          };
+          EL.ih.oninput = function() {
+            EL.is.value = this.value * 100 / Ed.data.height;
+            EL.iw.value = Math.round(this.value * Ed.data.width / Ed.data.height);
+            Ed.redraw();
+          };
+          EL.dl.onclick = () => {
+            var uri = EL.img.toDataURL("image/png").replace("image/png", "octet/stream");
+            EL.dla.href = uri;
+            EL.dla.download = Ed.temp + ".png";
+            EL.dla.click();
+          };
+          EL.tf.onclick = () => EL.img.classList.toggle("hf");
+          
+          onbeforeunload = () => "";
+          
+          return Ed;
+        })();
+    </script>
+  </body>
+</html>

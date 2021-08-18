@@ -1,0 +1,139 @@
+{
+  "names": [
+    "One _____ please",
+    "Wataten Trade"
+  ],
+  "post": "p1wnp9",
+  "_rimg": "6mlwbqrz2lg71",
+  "width": 1920,
+  "height": 3240,
+  "style": {
+    "font": "Verdana",
+    "size": 95,
+    "fill": "#FFF",
+    "halign": "center",
+    "valign": "centre",
+    "outline": "#000",
+    "stroke": 6
+  },
+  "text" : [
+    {
+      "text": [
+        {
+          "style": {
+            "fill": "#CFF"
+          },
+          "content": "Me",
+          "pos": [
+            {
+              "t": false,
+              "x": 200,
+              "y": 760
+            },
+            {
+              "t": false,
+              "x": 200,
+              "y": 1840
+            },
+            {
+              "x": 650,
+              "y": 2750
+            }
+          ]
+        },
+        {
+          "style": {
+            "valign": "bottom"
+          },
+          "content": "One _____ please",
+          "pos": [
+            {
+              "x": 960,
+              "y": 3160
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "text": [
+        {
+          "style": {
+            "fill": "#FCC"
+          },
+          "content": "Vendor",
+          "pos": [
+            {
+              "x": 1350,
+              "y": 2640
+            }
+          ]
+        },
+        {
+          "style": {
+            "size": "70",
+            "fill": "#FDD"
+          },
+          "content": "Huh?",
+          "pos": [
+            {
+              "t": false,
+              "x": 1050,
+              "y": 2840
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "style": {
+        "fill": "#CFC"
+      },
+      "text": [
+        {
+          "style": {
+            "size": 150
+          },
+          "content": "Price",
+          "pos": [
+            {
+              "t": false,
+              "x": 1110,
+              "y": 300
+            },
+            {
+              "x": 1155,
+              "y": 1810
+            }
+          ]
+        },
+        {
+          "style": {
+            "size": 75
+          },
+          "content": "Hidden price",
+          "pos": [
+            {
+              "t": false,
+              "x": 1110,
+              "y": 300
+            }
+          ]
+        },
+        {
+          "style": {
+            "size": 40
+          },
+          "content": "Small price",
+          "pos": [
+            {
+              "t": false,
+              "x": 1070,
+              "y": 3000
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
