@@ -1,0 +1,82 @@
+{
+  "names": [
+    "But I am superior.",
+    "Can't you do something about your superiority complex?"
+  ],
+  "post": "p7mia7",
+  "width": 1920,
+  "height": 2160,
+  "style": {
+    "font": "Verdana",
+    "size": 70,
+    "fill": "#FFF",
+    "halign": "center",
+    "valign": "centre",
+    "outline": "#000",
+    "stroke": 6
+  },
+  "text" : [
+    {
+      "style": {
+        "size": 100
+      },
+      "text": [
+        {
+          "style": {
+            "size": 150,
+            "fill": "#FCC"
+          },
+          "content": "Subject",
+          "pos": [
+            {
+              "x": 400,
+              "y": 350
+            }
+          ]
+        },
+        {
+          "style": {
+            "fill": "#CFF"
+          },
+          "content": "Superior\nsubject",
+          "pos": [
+            {
+              "t": false,
+              "x": 1280,
+              "y": 160
+            },
+            {
+              "x": 1100,
+              "y": 1300
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "style": {
+        "valign": "bottom"
+      },
+      "text": [
+        {
+          "content": "Can't you do something about\nyour superiority complex?",
+          "pos": [
+            {
+              "x": 960,
+              "y": 1000
+            }
+          ]
+        },
+        {
+          "content": "But I am superior.",
+          "pos": [
+            {
+              "x": 960,
+              "y": 2080
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
