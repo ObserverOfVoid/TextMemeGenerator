@@ -237,9 +237,9 @@
           
           var load = data => {
             Ed.data = data;
-            document.title = data.names[0] + " | " + document.title;
-            EL.names.innerText = data.names.join("\n");
-            EL.names.href = "https://old.reddit.com/" + data.post;
+            document.title = (data.names ? data.names[0] : Ed.temp) + " | " + document.title;
+            EL.names.innerText = data.names ? data.names.join("\n") : Ed.temp;
+            if (data.post) EL.names.href = "https://old.reddit.com/" + data.post;
             
             EL.stl.sheet.insertRule("#rp, #imgb:not(.hf) {width: " + (100 * data.width / data.height) + "vh;}");
             EL.lp.style.width = "calc(100vw - " + (100 * data.width / data.height) + "vh)";

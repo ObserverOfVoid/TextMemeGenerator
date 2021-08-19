@@ -18,15 +18,21 @@
   </head>
   <body class="full dynv">
     <textarea id="ta" class="dynf"></textarea>
-    <a id="oa">Open</a>
+    <div class="dynh">
+      <a id="oa" class="dynf">Open</a>
+      <a id="oam">Mini</a>
+    </div>
     <script>
       const
         par = new URLSearchParams(location.search),
         ta = document.getElementById("ta"),
-        oa = document.getElementById("oa");
+        oa = document.getElementById("oa"),
+        oam = document.getElementById("oam");
       ta.oninput = function() {
         par.set("data", ta.value);
         oa.href = "gen/?" + par.toString();
+        par.set("data", JSON.stringify(JSON.parse(ta.value)));
+        oam.href = "gen/?" + par.toString();
       };
       if (par.has("data")) {
         ta.value = par.get("data");
