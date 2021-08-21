@@ -13,12 +13,19 @@
         text-align: center;
         color: #FFF;
         padding: 10px;
+        transition: box-shadow 0.5s;
+        outline: none;
+      }
+      
+      a[href]:hover, a[href]:focus {
+        box-shadow: 0 0 10px 0 #000 inset;
       }
     </style>
   </head>
   <body class="full dynv">
     <textarea id="ta" class="dynf"></textarea>
     <div class="dynh">
+      <a id="ra">Save</a>
       <a id="oa" class="dynf">Open</a>
       <a id="oam">Mini</a>
     </div>
@@ -26,13 +33,18 @@
       const
         par = new URLSearchParams(location.search),
         ta = document.getElementById("ta"),
+        ra = document.getElementById("ra"),
         oa = document.getElementById("oa"),
         oam = document.getElementById("oam");
       ta.oninput = function() {
         par.set("data", ta.value);
-        oa.href = "gen/?" + par.toString();
-        par.set("data", JSON.stringify(JSON.parse(ta.value)));
-        oam.href = "gen/?" + par.toString();
+        oa.href = "gen/" + (ra.href = "?" + par.toString());
+        try {
+          par.set("data", JSON.stringify(JSON.parse(ta.value)));
+          oam.href = "gen/?" + par.toString();
+        } catch (e) {
+          oam.removeAttribute("href");
+        }
       };
       if (par.has("data")) {
         ta.value = par.get("data");
@@ -43,6 +55,8 @@
           ta.oninput();
         });
       }
+      
+      onbeforeunload = () => "";
     </script>
   </body>
 </html>

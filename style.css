@@ -24,7 +24,9 @@ a {
 button {
   border: none;
   border-radius: 0;
+  outline: none;
   font: normal 1em Verdana, sans-serif;
+  cursor: pointer;
 }
 
 body {
@@ -172,7 +174,7 @@ textarea {
   transition: box-shadow 0.2s;
 }
 
-.eli > a:hover, .eli > a:focus, .eli > button:hover, .eli > button:focus {
+.eli > a:hover, .eli > a:focus, .eli > button:hover, .eli > button:focus, .ae:hover, .ae:focus {
   box-shadow: 0 0 10px 0 #FFF;
   outline: none;
   cursor: pointer;

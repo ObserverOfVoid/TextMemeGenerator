@@ -1,0 +1,1 @@
+const EL = Array.prototype.reduce.call(document.querySelectorAll("[id]"), (E, e) => {E[e.id] = e; return E;}, {});

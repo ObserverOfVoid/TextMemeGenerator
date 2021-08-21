@@ -42,6 +42,32 @@
       #img.hf {
         width: 100%;
       }
+      
+      #dlp {
+        position: relative;
+        padding: 0;
+      }
+      
+      #fnamb {
+        flex-basis: 20%;
+      }
+      
+      #fnam {
+        box-sizing: border-box;
+        width: 20%;
+        height: 100%;
+        position: absolute;
+        transition: width 0.2s;
+      }
+      
+      #fnam:hover, #fnam:focus {
+        width: 80%;
+      }
+      
+      #dl {
+        background: none;
+        padding: 5px;
+      }
     </style>
   </head>
   <body class="full">
@@ -58,7 +84,12 @@
             &nbsp;×&nbsp;
             <input id="ih" class="dynf" type="number" min="1">
           </div>
-          <button id="dl">Download</button>
+          <div id="dlp" class="dynh">
+            <div id="fnamb">
+              <input id="fnam">
+            </div>
+            <button id="dl" class="ae dynf">Download</button>
+          </div>
           <button id="tf">Toggle&nbsp;fit</button>
         </div>
       </div>
@@ -70,13 +101,9 @@
     <div id="hig">
       <a id="dla"></a>
     </div>
+    <script src="../lib.js"></script>
     <script>
       const
-        EL = (() => {
-          var E = {};
-          Array.prototype.forEach.call(document.querySelectorAll("[id]"), e => E[e.id] = e);
-          return E;
-        })(),
         ELF = {
           div(el, cls) {
             var div = document.createElement("div");
@@ -235,6 +262,8 @@
           var pars = new URLSearchParams(location.search);
           Ed.temp = pars.get("temp");
           
+          EL.dla.download = (EL.fnam.value = Ed.temp || "meme") + ".png";
+          
           var load = data => {
             Ed.data = data;
             document.title = (data.names ? data.names[0] : Ed.temp) + " | " + document.title;
@@ -293,10 +322,12 @@
             EL.iw.value = Math.round(this.value * Ed.data.width / Ed.data.height);
             Ed.redraw();
           };
+          EL.fnam.oninput = function() {
+            EL.dla.download = this.value + ".png";
+          };
           EL.dl.onclick = () => {
             var uri = EL.img.toDataURL("image/png").replace("image/png", "octet/stream");
             EL.dla.href = uri;
-            EL.dla.download = Ed.temp + ".png";
             EL.dla.click();
           };
           EL.tf.onclick = () => EL.img.classList.toggle("hf");
